@@ -2,6 +2,7 @@
 #include<algorithm>
 #include<vector>
 #include<utility>
+#include<unordered_set>
 
 using namespace std;
 
@@ -10,7 +11,7 @@ vector<std::pair<int, int>> get_the_pairs(vector<int> s1, int target){
     int left = 0;
     int right = s1.size() - 1;
     vector<std::pair<int, int>> v1;
-    while(left < right){
+    while(left < right){ //              {1, 5, 7, -1, 4, 5}
         int sum = s1[left] + s1[right];
         if (sum == target){
             v1.push_back({s1[left], s1[right]});
@@ -24,11 +25,25 @@ vector<std::pair<int, int>> get_the_pairs(vector<int> s1, int target){
     return v1;
 }
 
+// without sorting:
+vector<std::pair<int, int>> get_the_pairs_wo_sort(vector<int> vec, int target){
+    std::unordered_set<int> seen;
+    vector<std::pair<int, int>> new_vec;
+    for (int num : vec){
+        int comp = target - num;
+        if (seen.count(comp)){
+            new_vec.push_back({comp,num}); 
+        }
+        seen.insert(num);
+    }
+    return new_vec;
+}
+
 
 int main(){
-    vector<int> s1 = {1, 5, 7, -1, 5};
+    vector<int> s1 = {1, 5, 7, -1, 4, 5};
     int target = 6;
-    vector<std::pair<int, int>> result = get_the_pairs(s1, target);
+    vector<std::pair<int, int>> result = get_the_pairs_wo_sort(s1, target);
     
     for (std::pair p1 : result){
         std::cout << p1.first << ", " << p1.second <<endl;
