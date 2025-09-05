@@ -11,7 +11,7 @@ vector<int> finding_miss_rep(vector<vector<int>>& nums){
     for (const auto& row : nums){
         for (int val : row){
             freq[val]++;
-            if(freq[val]>count) {
+            if(freq[val]==2) {
                 repeated=val;
                 count = freq[val];
             }    
@@ -54,7 +54,7 @@ vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid) {
 }
 
 int main(){
-    vector<vector<int>> nums = {{9,1,7},{8,9,2},{3,4,6}};
+    vector<vector<int>> nums = {{9,1,7},{8,5,2},{3,4,6}};
     vector<int> ans = finding_miss_rep(nums);
     for(int a : ans){
         cout<<a<<"\n";
